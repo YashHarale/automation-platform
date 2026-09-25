@@ -1,2 +1,37 @@
-{$N8N_HOST}
-reverse_proxy n8n:5678
+{
+	email {$CADDY_ACME_EMAIL}
+	admin {$CADDY_ADMIN}
+}
+
+(_secure_headers) {
+	header {
+		Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+		X-Content-Type-Options "nosniff"
+		X-Frame-Options "SAMEORIGIN"
+		Referrer-Policy "strict-origin-when-cross-origin"
+	}
+}
+
+{$N8N_HOST} {
+	encode zstd gzip
+	import _secure_headers
+
+	reverse_proxy n8n:5678 {
+		health_uri /healthz
+		health_interval 15s
+		health_timeout 5s
+		fail_duration 30s
+	}
+}
+
+{$UPTIME_KUMA_HOST} {
+	encode zstd gzip
+	import _secure_headers
+
+	reverse_proxy uptime-kuma:3001 {
+		health_uri /
+		health_interval 15s
+		health_timeout 5s
+		fail_duration 30s
+	}
+}

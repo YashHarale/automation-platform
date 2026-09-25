@@ -1,7 +1,12 @@
 .env
 
 # Runtime data
-postgres/*
+data/**
+!data/
+!data/**/
+!data/**/.gitkeep
+postgres/**
+!postgres/
 !postgres/.gitkeep
 backups/*
 !backups/.gitkeep
@@ -11,3 +16,6 @@ backups/*
 *.log
 .DS_Store
 Thumbs.db
+
+.vscode/
+.idea/
