@@ -1,0 +1,13 @@
+.env
+
+# Runtime data
+postgres/*
+!postgres/.gitkeep
+backups/*
+!backups/.gitkeep
+
+# n8n and Docker-generated files
+.n8n/
+*.log
+.DS_Store
+Thumbs.db
