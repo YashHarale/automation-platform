@@ -14,6 +14,7 @@ backups/*
 # n8n and Docker-generated files
 .n8n/
 *.log
+workflows/official-apm-and-fellowship-monitor.json
 .DS_Store
 Thumbs.db
 
